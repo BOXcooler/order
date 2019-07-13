@@ -1,0 +1,2 @@
+urlpatterns = [
+    path('/', include),
