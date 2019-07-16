@@ -1,10 +1,13 @@
-from django import forms
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import generic
-from order.forms import OrderForm
-from .models import Order
-from django.core.paginator import Paginator
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.db.models import Sum
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.mail import send_mail
+
+from .forms import OrderForm, OrderString
+from .models import Order
+def home_view(request):
+    pass
 
 
 def logout_view(request):
@@ -13,42 +16,32 @@ def logout_view(request):
     # Redirect to a success page.
 
 
-
+def add_order(request):
+    pass
 
 def add_order(request):
-    username = None
-    email = ''
-    if request.user.is_authenticated:
-        username = request.user.username
-        email = request.user.email
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            new_order = form.save(commit=False)
-            new_order.author = request.user
-            new_order.save()
-            if new_order.created_on.hour in (13,14):
-                print('!!!INFO!!! will send email to admin',new_order.created_on)
-            return redirect('order.html') # редиректим на страницу заказа
-    else:
-        form =OrderForm()
-    return render(request, 'order.html', {'form': form})
+    if request.user.is_authenticated and not request.user.is_staff:
+        # if request.user.is_staff:
+        #     template = 'orderlist.html'
+        # else:
+        if request.method == "POST":
+            form = OrderForm(request.POST)
+            if form.is_valid():
+                new_order = form.save(commit=False)
+                new_order.author = request.user
+                new_order.save()
+                # print(new_order.created_on.hour)
+                if new_order.created_on.hour in (13, 14):
+                    send_mail('Order between 13:00 and 15:00', 'Order was created on {} by user {}'.format(new_order.created_on.isoformat(),new_order.author.username), 'noreply@localho.st', [x.email for x in User.objects.filter(is_staff=True)])
+                    # print([x.email for x in User.objects.filter(is_staff=True)])
+                    print('!!!INFO!!! will send email to staff')
+                return redirect('order_view')  # редиректим на страницу заказа
+        return render(request, 'order.html', {'form': OrderForm()})
+    return redirect('home_view')
 
 
 
 
-def add_comment_to_post(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            return redirect('post_detail', slug=post.slug)
-    else:
-        form = CommentForm()
-    return render(request, 'add_comment_to_post.html', {'form': form})
 
 
 
