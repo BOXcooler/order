@@ -121,3 +121,10 @@ USE_L10N = True
 STATIC_URL = '/static/'
 
 #TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'project-for-order@yandex.ru'
+EMAIL_HOST_PASSWORD = 'nanvugvuznbuxzow'
+EMAIL_USE_TLS = True
