@@ -2,7 +2,7 @@ from django import forms
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from order.forms import CommentForm, UserForm
-from .models import Post, Tag, Comment,
+from .models import Post, Tag, Comment
 from django.core.paginator import Paginator
 from django.contrib.auth import logout
 
