@@ -15,10 +15,20 @@
 
             <tr>
 
-                <th><button type="submit" class="save btn btn-default">Отправить</button></th>
+                <th><button type="submit" id="knop" class="save btn btn-default">Отправить</button></th>
 
             </tr>
+<script>
+   function agreeForm(f) {
+    // Если время до 15, снимаем блокирование кнопки
+    if (new_order.created_on.hour in (7, 8, 9, 10, 11, 12, 13, 14)) f.submit.disabled = 0
+    // В противном случае вновь блокируем кнопку
+    else f.submit.disabled = 1
+   }
 
+
+   if ((new Date()).getHours() > 14) { document.getElementById("knop").disabled = true;}
+  </script>
             </tbody>
 
 
