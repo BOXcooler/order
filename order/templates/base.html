@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +12,10 @@
     <title>This title will be change!!!</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
 
 </head>
 
@@ -39,6 +40,12 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                 </li>
+{% if user.is_authenticated %}
+<li class="nav-link">User: {{ user.get_username }}</li>
+<li><a class="nav-link" href="{% url 'logout' %}?next={% url 'home_view' %}">Logout</a></li>
+{% else %}
+<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}">Login</a>
+{% endif %}
             </ul>
         </div>
     </div>
@@ -54,7 +61,7 @@
 <section id="about" class="bg-light">
     {% block content %}
 
-    {% endblock %}
+    {% endblock content %}
 </section>
 
 
@@ -67,14 +74,14 @@
 </footer>
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
 <!-- Custom JavaScript for this theme -->
-<script src="js/scrolling-nav.js"></script>
+<script src="{% static 'js/scrolling-nav.js' %}"></script>
 
 </body>
 
