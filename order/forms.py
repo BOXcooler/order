@@ -6,8 +6,12 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('order_item', 'cost', 'comment')
-        labels = { 'order_item':'zakaz', 'cost':'stoimost', 'comment':'komentariy' }
+        labels = { 'order_item':'Ваш заказ', 'cost':'Стоимость', 'comment':'Комментарий' }
 
 
 class OrderString(forms.Form):
-    pass
+    slug = forms.SlugField()
+    order_item = forms.CharField(max_length=200)
+    cost = forms.DecimalField()
+    comment = forms.CharField()
+    action = forms.CharField()

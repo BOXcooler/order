@@ -6,8 +6,15 @@ from django.core.mail import send_mail
 
 from .forms import OrderForm, OrderString
 from .models import Order
+
+
 def home_view(request):
-    pass
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect('list_view')
+        else:
+            return redirect('order_view')
+    return render(request, 'index.html')
 
 
 def logout_view(request):
@@ -15,9 +22,6 @@ def logout_view(request):
     return redirect('login')
     # Redirect to a success page.
 
-
-def add_order(request):
-    pass
 
 def add_order(request):
     if request.user.is_authenticated and not request.user.is_staff:
@@ -40,8 +44,24 @@ def add_order(request):
     return redirect('home_view')
 
 
-
-
-
-
-
+def order_list(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        if request.method == "POST":
+            form = OrderString(request.POST)
+            if form.is_valid():
+                c = get_object_or_404(Order, slug=form.cleaned_data['slug'])
+                if form.cleaned_data['action'] == 'Update':
+                    c.order_item = form.cleaned_data['order_item']
+                    c.cost = form.cleaned_data['cost']
+                    c.comment = ''.join(form.cleaned_data['comment'])
+                    #send_mail('Changes on order', 'your order was updated', 'noreply@localho.st',[c.author.email,])
+                    print('!!!INFO!!! send message to {} as order updated'.format(c.author.email))
+                    c.save()
+                elif form.cleaned_data['action'] == 'Delete':
+                    #send_mail('Changes on order', 'your order was deleted', 'noreply@localho.st',[c.author.email,])
+                    print('!!!INFO!!! send message to {} as order deleted'.format(c.author.email))
+                    c.delete()
+        orders = Order.objects.all()
+        total_cost = orders.aggregate(Sum('cost'))['cost__sum']
+        return render(request, 'orderlist.html', {'orders': orders, 'total_cost': total_cost})
+    return redirect('home_view')
