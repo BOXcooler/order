@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST" class="post-form">{% csrf_token %}
+        <div class="table-responsive">
+
+
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Что купить</th>
+                <th>Кому</th>
+                <th>Оплачено BYN</th>
+                <th>Комментарий</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for order in orders %}
+            <form method="post">{% csrf_token %}
+            <tr>
+                <td hidden="true"><input name="slug" contenteditable="false" value="{{ order.slug }}"></td>
+                <td><input name="order_item" contenteditable="true" value="{{ order.order_item }}"></td>
+                <td><input contenteditable="false" value="{{ order.author.username }}"></td>
+                <td><input name="cost" contenteditable="true" value="{{ order.cost }}"></td>
+                <td><input name="comment" contenteditable="true" value="{{ order.comment }}"></td>
+                <td><button type="submit" name="action" value="Update" class="save btn btn-default">Редактировать</button></td>
+                <td><button type="submit" name="action" value="Delete" class="save btn btn-default">Удалить</button></td>
+            </tr>
+            </form>
+            {% endfor %}
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+                <td>Итого (BYN)</td>
+                <td>{{ total_cost }}</td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </form>
+{% endblock content %}
