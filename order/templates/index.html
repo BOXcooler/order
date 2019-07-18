@@ -1,12 +1,27 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block header %}
+<section id="services" >
+    <div class="container-fluid"  style=" background-color: rgba(255, 255, 255, 0.6)">
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class=" min-vh-75 text-center m-0 d-flex flex-column justify-content-center" >
+                <h1 class="display-4">Добро пожаловать в ресторан</h1>
 
-{% if user.is_authenticated %}
-<li>User: {{ user.get_username }}</li>
-<li><a class="nav-link" href="{% url 'logout' %}?next={% url 'home_view' %}">Logout</a></li>
-{% else %}
-<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}" align="center"><button class="btn btn-primary" value="Login">Login</button> </a>
-    {% endif %}
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="{% url 'login' %}?next={% url 'home_view'%}" role="button">ВХОД</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+  </section>
 
-{% endblock content %}
+{#{% if user.is_authenticated %}#}
+{#<li>User: {{ user.get_username }}</li>#}
+{#<li><a class="nav-link" href="{% url 'logout' %}?next={% url 'home_view' %}">Logout</a></li>#}
+{#{% else %}#}
+{#<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}" align="center"><button class="btn btn-primary" value="Login">Login</button> </a>#}
+{#    {% endif %}#}
+
+{% endblock header %}

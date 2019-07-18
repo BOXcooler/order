@@ -1,5 +1,8 @@
 from django.urls import path, include
 from . import views
+from .views import e_handler404
+
+handler404 = e_handler404
 
 
 urlpatterns = [

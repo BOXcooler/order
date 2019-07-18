@@ -5,6 +5,7 @@
 		<div class="row" style="background-color:#343a40; color: #fff; border: 1px solid white" >
 			<div class="col-md-2"><p class="font-weight-bold">Что купить</p></div>
 			<div class="col-sm"><p class="font-weight-bold">Кому</p></div>
+            <div class="col-sm"><p class="font-weight-bold">Email</p></div>
 			<div class="col-sm"><p class="font-weight-bold">Оплачено BYN</p></div>
 			<div class="col-sm"><p class="font-weight-bold">Комментарий</p></div>
 			<div class="col-sm"></div>
@@ -25,6 +26,7 @@
 				<div class="col-sm" hidden="true"></div>
 				<div class="col-md-2">{{ order.order_item }}</div>
 				<div class="col-sm">{{ order.author.username }}</div>
+                <div class="col-sm">{{ order.author.email }}</div>
 				<div class="col-sm">{{ order.cost }}</div>
 				<div class="col-sm">{{ order.comment }}</div>
 				<div class="col-sm">
@@ -41,8 +43,11 @@
 					<div class="col-sm">
 						<input name="order_item" contenteditable="true" value="{{ order.order_item }}" class="form-control">
 					</div>
-					<div class="col-sm">
-						<input contenteditable="false" value="{{ order.author.username }}" class="form-control">
+				    <div class="col-sm">
+						<input contenteditable="false" value="{{ order.author.username }}" class="form-control" readonly>
+					</div>
+                    <div class="col-sm">
+						<input contenteditable="false" value="{{ order.author.email }}" class="form-control" readonly>
 					</div>
 					<div class="col-sm">
 						<input name="cost" contenteditable="true" value="{{ order.cost }}" class="form-control">
