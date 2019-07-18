@@ -6,6 +6,7 @@
 <li>User: {{ user.get_username }}</li>
 <li><a class="nav-link" href="{% url 'logout' %}?next={% url 'home_view' %}">Logout</a></li>
 {% else %}
-<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}">Login</a>
-{% endif %}
+<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}" align="center"><button class="btn btn-primary" value="Login">Login</button> </a>
+    {% endif %}
+
 {% endblock content %}

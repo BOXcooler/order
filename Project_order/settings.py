@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '&pqtk9$5-no1g!5$$7#0lfu&da7r8g^qeeaj3@bdkxa9ly%_eg'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -70,7 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Project_order.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -80,7 +77,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -100,7 +96,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -112,7 +107,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-#USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -120,7 +115,7 @@ USE_L10N = True
 
 STATIC_URL = '/static/'
 
-#TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+# TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
 
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -128,3 +123,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'project-for-order@yandex.ru'
 EMAIL_HOST_PASSWORD = 'nanvugvuznbuxzow'
 EMAIL_USE_TLS = True
+
+# yandex.acc for project_order
+# username: project-for-order@yandex.ru
+# passwd: 16072019edc

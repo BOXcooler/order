@@ -36,11 +36,14 @@ def add_order(request):
                 new_order.save()
                 # print(new_order.created_on.hour)
                 if new_order.created_on.hour in (13, 14):
-                    send_mail('Order between 13:00 and 15:00', 'Order was created on {} by user {}'.format(new_order.created_on.isoformat(),new_order.author.username), 'project-for-order@yandex.ru', [x.email for x in User.objects.filter(is_staff=True)])
+                    send_mail('Order between 13:00 and 15:00',
+                              'Order was created on {} by user {}'.format(new_order.created_on.isoformat(),
+                                                                          new_order.author.username),
+                              'project-for-order@yandex.ru', [x.email for x in User.objects.filter(is_staff=True)])
                     # print([x.email for x in User.objects.filter(is_staff=True)])
                     print('!!!INFO!!! will send email to staff')
                 return redirect('order_view')  # редиректим на страницу заказа
-        return render(request, 'order.html', {'form': OrderForm()})
+        return render(request, 'order.html', {'form': OrderForm(use_required_attribute=False), 'labels': OrderForm.Meta.labels})
     return redirect('home_view')
 
 
@@ -54,11 +57,13 @@ def order_list(request):
                     c.order_item = form.cleaned_data['order_item']
                     c.cost = form.cleaned_data['cost']
                     c.comment = ''.join(form.cleaned_data['comment'])
-                    send_mail('Changes on order', 'your order was updated', 'project-for-order@yandex.ru',[c.author.email,])
+                    send_mail('Changes on order', 'your order was updated', 'project-for-order@yandex.ru',
+                              [c.author.email, ])
                     print('!!!INFO!!! send message to {} as order updated'.format(c.author.email))
                     c.save()
                 elif form.cleaned_data['action'] == 'Delete':
-                    send_mail('Changes on order', 'your order was deleted', 'project-for-order@yandex.ru',[c.author.email,])
+                    send_mail('Changes on order', 'your order was deleted', 'project-for-order@yandex.ru',
+                              [c.author.email, ])
                     print('!!!INFO!!! send message to {} as order deleted'.format(c.author.email))
                     c.delete()
         orders = Order.objects.all()

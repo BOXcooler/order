@@ -6,7 +6,12 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('order_item', 'cost', 'comment')
-        labels = { 'order_item':'Ваш заказ', 'cost':'Стоимость', 'comment':'Комментарий' }
+        labels = {'order_item': 'Ваш заказ', 'cost': 'Стоимость', 'comment': 'Комментарий'}
+        widgets = {
+            'order_item': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'cost': forms.NumberInput(attrs={'class': 'form-control', 'required': True, 'min': 0.01}),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': '2'})
+        }
 
 
 class OrderString(forms.Form):

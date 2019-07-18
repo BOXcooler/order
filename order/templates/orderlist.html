@@ -1,42 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="POST" class="post-form">{% csrf_token %}
-        <div class="table-responsive">
+
+	<div class="container-fluid">
+		<div class="row" style="background-color:#343a40; color: #fff; border: 1px solid white" >
+			<div class="col-md-2"><p class="font-weight-bold">Что купить</p></div>
+			<div class="col-sm"><p class="font-weight-bold">Кому</p></div>
+			<div class="col-sm"><p class="font-weight-bold">Оплачено BYN</p></div>
+			<div class="col-sm"><p class="font-weight-bold">Комментарий</p></div>
+			<div class="col-sm"></div>
+			<div class="col-sm"></div>
+		</div>
+		{% for order in orders %}
+            <script>
+                'use strict'
+                $(document).ready(function () {
+
+                    $('#{{ order.slug }}').click(function () {
+                        $(this).hide();
+                        $('div#{{ order.slug }}').show();
+                    })
+                });
+            </script>
+			<div class="row" style="display: none;">
+				<div class="col-sm" hidden="true"></div>
+				<div class="col-md-2">{{ order.order_item }}</div>
+				<div class="col-sm">{{ order.author.username }}</div>
+				<div class="col-sm">{{ order.cost }}</div>
+				<div class="col-sm">{{ order.comment }}</div>
+				<div class="col-sm">
+					<button type="submit" name="action" value="Update" class="btn btn-secondary" id="{{ order.slug }}">Редактировать
+					</button>
+	            </div>
+	            <div class="col-sm"></div>
+			</div>
+			<form method="post">{% csrf_token %}
+				<div class="row" style="border: 1px solid white;" id="{{ order.slug }}">
+					<div class="col-sm" hidden="true">
+						<input name="slug" contenteditable="false" value="{{ order.slug }}" class="form-control">
+					</div>
+					<div class="col-sm">
+						<input name="order_item" contenteditable="true" value="{{ order.order_item }}" class="form-control">
+					</div>
+					<div class="col-sm">
+						<input contenteditable="false" value="{{ order.author.username }}" class="form-control">
+					</div>
+					<div class="col-sm">
+						<input name="cost" contenteditable="true" value="{{ order.cost }}" class="form-control">
+					</div>
+					<div class="col-sm">
+						<input name="comment" contenteditable="true" value="{{ order.comment }}" class="form-control">
+					</div>
+					<div class="col-sm">
+						<button type="submit" name="action" value="Update" class="btn btn-secondary">Редактировать
+						</button>
+					</div>
+					<div class="col-sm">
+						<button type="submit" name="action" value="Delete" class="btn btn-danger">Удалить</button>
+					</div>
+				</div>
+			</form>
 
 
-            <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Что купить</th>
-                <th>Кому</th>
-                <th>Оплачено BYN</th>
-                <th>Комментарий</th>
-            </tr>
-            </thead>
+			{% endfor %}
+			<div class="row">
+				<div class="col-sm"><p class="font-weight-bold">Итого (BYN)</p></div>
+				<div class="col-sm"><p class="font-weight-bold">{{ total_cost }}</p></div>
+				<div class="col-sm"></div>
+				<div class="col-sm"></div>
+				<div class="col-sm"></div>
+				<div class="col-sm"></div>
+			</div>
+	</div>
 
-            <tbody>
-            {% for order in orders %}
-            <form method="post">{% csrf_token %}
-            <tr>
-                <td hidden="true"><input name="slug" contenteditable="false" value="{{ order.slug }}"></td>
-                <td><input name="order_item" contenteditable="true" value="{{ order.order_item }}"></td>
-                <td><input contenteditable="false" value="{{ order.author.username }}"></td>
-                <td><input name="cost" contenteditable="true" value="{{ order.cost }}"></td>
-                <td><input name="comment" contenteditable="true" value="{{ order.comment }}"></td>
-                <td><button type="submit" name="action" value="Update" class="save btn btn-default">Редактировать</button></td>
-                <td><button type="submit" name="action" value="Delete" class="save btn btn-default">Удалить</button></td>
-            </tr>
-            </form>
-            {% endfor %}
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr>
-                <td>Итого (BYN)</td>
-                <td>{{ total_cost }}</td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-    </form>
 {% endblock content %}
