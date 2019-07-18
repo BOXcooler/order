@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<li>User: {{ user.get_username }}</li>
+<li><a class="nav-link" href="{% url 'logout' %}?next={% url 'home_view' %}">Logout</a></li>
+{% else %}
+<a class="nav-link" href="{% url 'login' %}?next={% url 'home_view' %}">Login</a>
+{% endif %}
+{% endblock content %}
