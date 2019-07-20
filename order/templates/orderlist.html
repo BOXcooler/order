@@ -22,8 +22,8 @@
                     })
                 });
             </script>
-			<div class="row" style="display: none;">
-				<div class="col-sm" hidden="true"></div>
+			<div class="row" style="display: none">
+				<div class="col-sm" hidden="true" style="display: none;"></div>
 				<div class="col-md-2">{{ order.order_item }}</div>
 				<div class="col-sm">{{ order.author.username }}</div>
                 <div class="col-sm">{{ order.author.email }}</div>
@@ -67,8 +67,9 @@
 
 
 			{% endfor %}
+    <br>
 			<div class="row">
-				<div class="col-sm"><p class="font-weight-bold">Итого (BYN)</p></div>
+                <div class="col-sm"><p class="font-weight-bold">Итого (BYN)</p></div>
 				<div class="col-sm"><p class="font-weight-bold">{{ total_cost }}</p></div>
 				<div class="col-sm"></div>
 				<div class="col-sm"></div>

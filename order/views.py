@@ -21,31 +21,25 @@ def home_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-    # Redirect to a success page.
 
 
 def add_order(request):
     if request.user.is_authenticated and not request.user.is_staff:
-        # if request.user.is_staff:
-        #     template = 'orderlist.html'
-        # else:
         if request.method == "POST":
             form = OrderForm(request.POST)
             if form.is_valid():
                 new_order = form.save(commit=False)
                 new_order.author = request.user
                 new_order.save()
-                # print(new_order.created_on.hour)
                 if new_order.created_on.hour in (13, 14):
                     send_mail('Order between 13:00 and 15:00',
                               'Order was created on {} by user {}'.format(new_order.created_on.isoformat(),
                                                                           new_order.author.username),
                               'project-for-order@yandex.ru', [x.email for x in User.objects.filter(is_staff=True)])
-                    # print([x.email for x in User.objects.filter(is_staff=True)])
                     print('!!!INFO!!! will send email to staff')
-                # return redirect('order_view')  # редиректим на страницу заказа
                 return render(request, 'thanks_for_order.html')
-        return render(request, 'order.html', {'form': OrderForm(use_required_attribute=False), 'labels': OrderForm.Meta.labels})
+        return render(request, 'order.html',
+                      {'form': OrderForm(use_required_attribute=False), 'labels': OrderForm.Meta.labels})
     return redirect('home_view')
 
 

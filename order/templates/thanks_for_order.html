@@ -1,45 +1,43 @@
 {% extends "base.html" %}
 
 {% block header %}
-  <header class="bg-primary text-white">
-    <div class="container text-center">
-       
-      <p class="lead"></p>
-	  <br>
-	   <br>
-	    <br>
-		 <br>
-		  <br>
-		   <br>
-		   <h1>Спасибо, Ваш заказ принят!</h1>
-		    <br>
-			 <br>
-			  <br> 
-			   <br>
-			    <br>
-				 <br>
-				  <br>
-				   <br>
-				    <br>
-					 <br>
-					  <br>
-					   <br>
-					    <br>
-						<br>
-						<br>
-						<br>
-						<br>
-						
-					
-						
-    </div>
-  </header>
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+
+            <p class="lead"></p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h1>Спасибо, Ваш заказ принят!</h1>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </header>
     <script>
-    $(document).ready(function(){
-      setTimeout(function() {
-       window.location.href = {% url 'order_view' %}
-      }, 2000);
-    });
+        $(document).ready(function () {
+            setTimeout(function () {
+                window.location.href =
+                {% url 'order_view' %}
+            }, 2000);
+        });
     </script>
 
 {% endblock header %}
